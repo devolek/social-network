@@ -1,0 +1,2 @@
+webpackJsonp([27],{"JLV/":function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var s={render:function(){var e=this.$createElement;return(this._self._c||e)("h1",[this._v("Statistics")])},staticRenderFns:[]},i=n("VU/8")({name:"AdminStatistics"},s,!1,null,null,null);t.default=i.exports}});
+//# sourceMappingURL=27.ac4eb7a9ff6a64c81d11.js.map

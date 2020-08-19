@@ -1,0 +1,11 @@
+spring:
+  boot.admin.client.url: http://localhost:8082
+
+server:
+  port: 8080
+
+spring.boot.admin.client.username: admin
+spring.boot.admin.client.password: admin-password
+spring.boot.admin.client.instance.metadata.user.name: actuator
+spring.boot.admin.client.instance.metadata.user.password: actuator
+management.endpoints.web.exposure.include: '*'

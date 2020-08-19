@@ -1,0 +1,54 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/social_network_test?&createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Moscow
+    username: root
+    password: testtest
+  jpa:
+    show-sql: false
+    hibernate.ddl-auto: none
+
+    properties:
+      hibernate:
+        jdbc.time_zone: Europe/Moscow
+        dialect: org.hibernate.dialect.MySQL55Dialect
+        globally_quoted_identifiers: true
+
+jwt.token:
+  secret: jwtappdemo
+  expired: 3600000
+
+server:
+  port: 8080
+
+port: "8080"
+
+upload:
+  path: "C:/Users/Katerina/Desktop/storage"
+
+hostname: localhost:8080
+
+project.name: Социальная сеть разработчиков
+
+path.to.dblocation.city: 'src\main\resources\static\GeoLite2-City_20200616_2\GeoLite2-City.mmdb'
+
+spring.mail:
+  # Логин и пароль пользователя от почты на gmail
+  host: smtp.gmail.com
+  port: 587
+  username: skillboxsocial@gmail.com
+  password: javaproiddqd
+  # Other properties
+  properties.mail.smtp:
+    auth: true
+    connectiontimeout: 5000
+    timeout: 5000
+    writetimeout: 5000
+    # TLS , port 587
+    starttls.enable: true
+
+test.user:
+  password: "12345678"
+  email: "test@javarush.ru"
+  friendEmail: "friend@skillbox.ru"
+  userFromMyCityEmail: "my@city.ru"
+  myFriendsFriendEmail: "my@friend.ru"

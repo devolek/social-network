@@ -1,0 +1,770 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-test.yaml
+  - changeSet:
+      id: 1.0.1
+      author: devolek
+      changes:
+        - createTable:
+            tableName: persons
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  name: about
+                  type: LONGTEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValue: false
+                  name: is_approved
+                  type: BIT(1)
+              - column:
+                  name: birth_date
+                  type: date
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValue: false
+                  name: is_blocked
+                  type: BIT(1)
+              - column:
+                  name: confirmation_code
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                    unique: true
+                  name: e_mail
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: first_name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: last_name
+                  type: VARCHAR(255)
+              - column:
+                  name: last_online_time
+                  type: datetime
+              - column:
+                  name: messages_permission
+                  type: ENUM("ALL", "FRIENDS")
+                  defaultValue: "ALL"
+              - column:
+                  name: status
+                  type: ENUM("REGISTERED", "BLOCKED", "DELETED")
+                    defaultValue: "REGISTERED"
+              - column:
+                  constraints:
+                    nullable: false
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  name: phone
+                  type: VARCHAR(255)
+              - column:
+                  name: photo
+                  type: LONGTEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: reg_date
+                  type: datetime
+              - column:
+                  name: town_id
+                  type: INT
+  - changeSet:
+      id: 1.0.2
+      author: devolek
+      changes:
+        - createTable:
+            tableName: block_histories
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: action
+                  type: ENUM("BLOCK", "UNBLOCK")
+              - column:
+                  constraints:
+                    nullable: false
+                  name: time
+                  type: datetime
+              - column:
+                  constraints:
+                    nullable: false
+                  name: comment_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: person_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: post_id
+                  type: INT
+  - changeSet:
+      id: 1.0.3
+      author: devolek
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                    unique: true
+                  name: e_mail
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: type
+                  type: ENUM("MODERATOR", "ADMIN")
+  - changeSet:
+      id: 1.0.4
+      author: devolek
+      changes:
+        - createTable:
+            tableName: friendships
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: dst_person_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: status_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: src_person_id
+                  type: INT
+  - changeSet:
+      id: 1.0.5
+      author: devolek
+      changes:
+        - createTable:
+            tableName: friendship_statuses
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: code
+                  type: ENUM("REQUEST", "FRIEND", "BLOCKED", "DECLINED", "SUBSCRIBED")
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: time
+                  type: datetime
+  - changeSet:
+      id: 1.0.6
+      author: devolek
+      changes:
+        - createTable:
+            tableName: messages
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: message_text
+                  type: LONGTEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValue: "SENT"
+                  name: read_status
+                  type: ENUM("SENT", "READ")
+              - column:
+                  constraints:
+                    nullable: false
+                  name: time
+                  type: datetime
+              - column:
+                  constraints:
+                    nullable: false
+                  name: author_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: recipient_id
+                  type: INT
+  - changeSet:
+      id: 1.0.7
+      author: devolek
+      changes:
+        - createTable:
+            tableName: posts
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValue: false
+                  name: is_blocked
+                  type: BIT(1)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: post_text
+                  type: LONGTEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: time
+                  type: datetime
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: author_id
+                  type: INT
+  - changeSet:
+      id: 1.0.8
+      author: devolek
+      changes:
+        - createTable:
+            tableName: tags
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: tag
+                  type: VARCHAR(255)
+  - changeSet:
+      id: 1.0.9
+      author: devolek
+      changes:
+        - createTable:
+            tableName: posts2tags
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: post_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: tag_id
+                  type: INT
+  - changeSet:
+      id: 1.0.10
+      author: devolek
+      changes:
+        - createTable:
+            tableName: post_likes
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: time
+                  type: datetime
+              - column:
+                  constraints:
+                    nullable: false
+                  name: person_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: post_id
+                  type: INT
+  - changeSet:
+      id: 1.0.11
+      author: devolek
+      changes:
+        - createTable:
+            tableName: post_files
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: path
+                  type: LONGTEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: post_id
+                  type: INT
+  - changeSet:
+      id: 1.0.12
+      author: devolek
+      changes:
+        - createTable:
+            tableName: post_comments
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValue: false
+                  name: is_blocked
+                  type: BIT(1)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: comment_text
+                  type: LONGTEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: time
+                  type: datetime
+              - column:
+                  constraints:
+                    nullable: false
+                  name: author_id
+                  type: INT
+              - column:
+                  name: parent_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: post_id
+                  type: INT
+  - changeSet:
+      id: 1.0.13
+      author: devolek
+      changes:
+        - createTable:
+            tableName: notifications
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: contact
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: sent_time
+                  type: datetime
+              - column:
+                  constraints:
+                    nullable: false
+                  name: person_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: type_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: entity_id
+                  type: INT
+  - changeSet:
+      id: 1.0.14
+      author: devolek
+      changes:
+        - createTable:
+            tableName: notification_types
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: code
+                  type: ENUM("POST", "POST_COMMENT", "COMMENT_COMMENT", "FRIEND_REQUEST", "MESSAGE")
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+  - changeSet:
+      id: 1.0.15
+      author: devolek
+      changes:
+        - createTable:
+            tableName: town
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: city_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: country_id
+                  type: INT
+  - changeSet:
+      id: 1.0.16
+      author: devolek
+      changes:
+        - createTable:
+            tableName: city
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: VARCHAR(255)
+  - changeSet:
+      id: 1.0.17
+      author: devolek
+      changes:
+        - createTable:
+            tableName: country
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: VARCHAR(255)
+  - changeSet:
+      id: 1.0.18
+      author: devolek
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: ENUM("ROLE_USER", "ROLE_MODERATOR", "ROLE_ADMIN")
+  - changeSet:
+      id: 1.0.19
+      author: devolek
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: role_id
+                  type: INT
+  - changeSet:
+      id: 1.1.1
+      author: devolek
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: "ROLE_USER"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: "ROLE_MODERATOR"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: "ROLE_ADMIN"
+  - changeSet:
+      id: 1.1.2
+      author: devolek
+      changes:
+        - insert:
+            tableName: country
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: title
+                  value: "Россия"
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: title
+                  value: "Москва"
+        - insert:
+            tableName: town
+            columns:
+              - column:
+                  name: city_id
+                  value: 1
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role_id
+                  value: 1
+  - changeSet:
+      id: 1.1.3
+      author: devolek
+      changes:
+        - createTable:
+            tableName: files
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: VARCHAR(300)
+              - column:
+                  name: owner_id
+                  type: INT
+              - column:
+                  name: file_name
+                  type: VARCHAR(300)
+              - column:
+                  name: relative_file_path
+                  type: VARCHAR(300)
+              - column:
+                  name: raw_file_URL
+                  type: VARCHAR(300)
+              - column:
+                  name: file_format
+                  type: VARCHAR(255)
+              - column:
+                  name: bytes
+                  type: BIGINT
+              - column:
+                  name: file_type
+                  type: ENUM("IMAGE")
+              - column:
+                  name: created_at
+                  type: datetime
+  - changeSet:
+      id: 1.1.4
+      author: devolek
+      changes:
+        - createTable:
+            tableName: dialogs
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creation_date
+                  type: datetime
+        - createTable:
+            tableName: dialog2person
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: dialog_id
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: person_id
+                  type: INT
+        - addColumn:
+            tableName: messages
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: dialog_id
+                  type: INT
+  - changeSet:
+      id: 1.1.5
+      author: devolek
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: city
+                  type: varchar(255)
+            tableName: persons
+        - addColumn:
+            columns:
+              - column:
+                  name: country
+                  type: varchar(255)
+            tableName: persons
+        - dropColumn:
+            columnName: town_id
+            tableName: persons
+
+  - include:
+      file: db/changelog-test/db.changelog-test-insertPersons.yaml
+  - include:
+      file: db/changelog-test/db.changelog-test-insertPosts.yaml
